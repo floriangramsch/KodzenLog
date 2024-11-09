@@ -1,0 +1,25 @@
+name: Update Cats
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update_cats:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: SSH into Raspberry Pi and pull changes
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.PI_HOST }}
+        username: ${{ secrets.PI_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          cd /home/pi/Deployed/Cats
+          git pull
+          make build
