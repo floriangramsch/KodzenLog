@@ -13,8 +13,6 @@ app.use(
   })
 );
 
-console.log(process.env.DB_HOST, process.env.DB_USER, process.env.DB_NAME);
-
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
