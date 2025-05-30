@@ -1,20 +1,16 @@
-# Dockerfile
-FROM node:18
+# --- Build Stage ---
+FROM node:24-alpine AS builder
 
-# Arbeitsverzeichnis erstellen und wechseln
-WORKDIR /usr/src/app
-
-# Kopiere package.json und package-lock.json
+WORKDIR /app
 COPY package*.json ./
-
-# Installiere Abhängigkeiten
-RUN npm install
-
-# Kopiere den Rest des Codes
+RUN npm install --omit=dev
 COPY . .
 
-# Exponiere Port 5000
-EXPOSE 5000
+# --- Runtime Stage ---
+FROM node:24-alpine
 
-# Startbefehl
+WORKDIR /app
+COPY --from=builder /app ./
+
+EXPOSE 7777
 CMD ["npm", "start"]

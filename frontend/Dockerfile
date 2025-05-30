@@ -1,17 +1,16 @@
-# Frontend Dockerfile
-FROM node:18-alpine
+# --- Build Stage ---
+FROM node:24-alpine AS builder
 
-WORKDIR /usr/src/app
-
-# Kopiere package.json und package-lock.json und installiere die Abhängigkeiten
+WORKDIR /app
 COPY package*.json ./
-RUN npm install
-
-# Kopiere die restlichen Dateien in das Arbeitsverzeichnis
+RUN npm install --omit=dev
 COPY . .
 
-# Exponiere den Port 8080 für http-server
-EXPOSE 8080
+# --- Runtime Stage ---
+FROM node:24-alpine
 
-# Starte den http-server mit dem Proxy-Flag
-CMD ["npx", "http-server", "-p", "8080", "--proxy", "http://backend:5000"]
+WORKDIR /app
+COPY --from=builder /app ./
+
+EXPOSE 8080
+CMD ["npm", "start"]
