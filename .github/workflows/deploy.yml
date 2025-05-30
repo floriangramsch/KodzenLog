@@ -13,13 +13,26 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: SSH into Raspberry Pi and pull changes
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.PI_HOST }}
-          username: ${{ secrets.PI_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd /home/pi/Deployed/KodzenLog
-            git pull
-            make build
+      - name: Log in to my registry
+        run: echo "${{ secrets.REGISTRY_TOKEN }}" | docker login ghcr.io -u flo --password-stdin
+
+      - name: Build & Push API
+        run: |
+          docker build -t registry.floxsite.de/cats-backend:latest ./api
+          docker push registry.floxsite.de/cats-backend:latest
+
+      - name: Build & Push Frontend
+        run: |
+          docker build -t registry.floxsite.de/cats-frontend:latest ./frontend
+          docker push registry.floxsite.de/cats-frontend:latest
+
+      # - name: SSH into Raspberry Pi and pull changes
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ secrets.PI_HOST }}
+      #     username: ${{ secrets.PI_USERNAME }}
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     script: |
+      #       cd /home/pi/Deployed/KodzenLog
+      #       git pull
+      #       make build
