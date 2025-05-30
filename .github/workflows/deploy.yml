@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Log in to my registry
-        run: echo "${{ secrets.REGISTRY_TOKEN }}" | docker login ghcr.io -u flo --password-stdin
+        run: echo "${{ secrets.REGISTRY_TOKEN }}" | docker login registry.floxsite.de -u flo --password-stdin
 
       - name: Build & Push API
         run: |
