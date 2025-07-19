@@ -125,7 +125,10 @@ app.post("/api/feed", (req, res) => {
         res.status(500).json({ error: "Datenbankfehler: " + error.message });
         return;
       }
-      res.json({ message: "Katze gefüttert", time: new Date() });
+      res.json({
+        message: "Katze gefüttert",
+        time: new Date().toLocaleString("de-DE"),
+      });
     }
   );
 });
