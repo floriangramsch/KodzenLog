@@ -127,7 +127,7 @@ app.post("/api/feed", (req, res) => {
       }
       res.json({
         message: "Katze gefüttert",
-        time: new Date().toLocaleString("de-DE"),
+        time: new Date().toLocaleString("de-DE", { timeZone: "Europe/Berlin" }),
       });
     }
   );
