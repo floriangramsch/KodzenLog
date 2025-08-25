@@ -1,3 +1,18 @@
 **/.env*
 !**/.env.template
 node_modules
+typings/
+env.py
+__pycache__/
+
+# KiCad 9
+*.kicad_pcb.zip
+*.kicad_prl
+~_autosave-*.kicad_pcb.lck
+*-backups/
+fp-info-cache
+
+# Optionale Outputs
+gerb/
+*.step
+*.3mf

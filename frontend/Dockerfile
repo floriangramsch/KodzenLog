@@ -12,5 +12,5 @@ FROM node:24-alpine
 WORKDIR /app
 COPY --from=builder /app ./
 
-EXPOSE 8080
+EXPOSE 8888
 CMD ["npm", "start"]

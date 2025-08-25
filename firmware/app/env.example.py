@@ -1,0 +1,10 @@
+WIFI_SSID = ""
+WIFI_PASSWORD = ""
+
+MQTT_SERVER = ""
+MQTT_USER = ""
+MQTT_PASSWORD = ""
+MQTT_PORT = 1
+
+API_ATE = ""
+API_FEED = ""
