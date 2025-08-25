@@ -15,4 +15,3 @@ fp-info-cache
 # Optionale Outputs
 gerb/
 *.step
-*.3mf
